@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+
 # set plugin directory
 SONAR_PLUGIN_DIR=/opt/ci-sync/sonarqube_home/extensions/plugins
+mkdir -p ${SONAR_PLUGIN_DIR}
 
 # git
 GIT_PLUGIN_VERSION=1.1
