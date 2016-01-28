@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <artifactId>greeting-pom</artifactId>
+  <groupId>com.simdevmon</groupId>  
+  <version>0.1-SNAPSHOT</version>  
+  <packaging>pom</packaging>
+  
+  <modules>
+    <module>greeting</module>
+    <module>greeting-st</module>
+  </modules>
+	
+  <properties>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+  
+  <!-- profile for CI build -->
+  <profiles>    
+    <profile>
+      <id>ci-build</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <!-- sonarqube plugin for code quality analysis  -->
+          <plugin>        
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>2.7.1</version>
+          </plugin>
+      
+          <!-- jacoco plugin for code-coverage analysis -->
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.7.5.201505241946</version>
+            <executions>
+              <execution>
+                <id>pre-unit-test</id>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+                <configuration>
+                  <destFile>${project.build.directory}/jacoco.exec</destFile>            
+                  <propertyName>surefireArgLine</propertyName>
+                </configuration>
+              </execution>
+              <execution>
+                <id>pre-integration-test</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+                <configuration>              
+                  <destFile>${project.build.directory}/jacoco-it.exec</destFile>
+                  <propertyName>failsafeArgLine</propertyName>
+                </configuration>
+              </execution>
+            </executions>        
+          </plugin>
+      
+          <!-- surefire plugin configuration for jacoco hook -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.19.1</version>
+            <configuration>          
+              <argLine>${surefireArgLine}</argLine>
+              <skipTests>${skip.unit.tests}</skipTests>
+            </configuration>
+          </plugin> 
+          
+          <!-- failsafe plugin configuration for jacoco hook -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>2.19.1</version>
+            <executions>
+              <execution>
+                <id>integration-tests</id>
+                <goals>
+                  <goal>integration-test</goal>
+                </goals>
+                <configuration>
+                  <argLine>${failsafeArgLine}</argLine>
+                  <skipTests>${skip.integration.tests}</skipTests>
+                  <!-- workaround for sonarqube to display failsafe results (failsafe-reports is not supported) -->
+                  <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>          
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

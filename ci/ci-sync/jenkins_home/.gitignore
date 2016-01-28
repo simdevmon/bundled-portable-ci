@@ -1,0 +1,36 @@
+#ignore all JENKINS_HOME except jobs directory, root xml config, and .gitignore file
+/*
+!/jobs
+!/.gitignore
+!/*.xml
+
+#ignore all files in jobs subdirectories except for folders (git doesn't track folders, only file content)
+jobs/**
+!jobs/**/
+
+# uncomment to exclude config.xml files in repository subdirectories
+#!config.xml
+
+# ignore specific settings
+/credentials.xml
+/nodeMonitors.xml
+/queue.xml
+/jenkins.mvn.GlobalMavenConfig.xml
+/jenkins.model.JenkinsLocationConfiguration.xml
+/jenkins.model.ArtifactManagerConfiguration.xml
+/hudson.triggers.SCMTrigger.xml
+/hudson.tasks.Shell.xml
+/hudson.tasks.Mailer.xml
+/hudson.tasks.Ant.xml
+/hudson.scm.SubversionSCM.xml
+/hudson.plugins.sonar.MsBuildSQRunnerInstallation.xml
+/hudson.plugins.git.GitTool.xml
+/hudson.plugins.git.GitSCM.xml
+/hudson.model.UpdateCenter.xml
+/hudson.maven.MavenModuleSet.xml
+/hudson.scm.CVSSCM.xml
+/com.sonyericsson.rebuild.RebuildDescriptor.xml
+/org.jenkinsci.plugins.gitclient.JGitTool.xml
+
+#as a result only settings and job config.xml files in JENKINS_HOME will be tracked by git
+

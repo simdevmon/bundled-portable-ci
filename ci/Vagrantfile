@@ -1,0 +1,28 @@
+# Vagrant file for portable-bundled-ci
+Vagrant.configure(2) do |config|
+
+  # base box
+  config.vm.box = "ubuntu/trusty64"
+  
+  # synced folders
+  config.vm.synced_folder "ci-sync/", "/opt/ci-sync"  
+  
+  # provision
+  config.vm.provision "docker"
+  config.vm.provision "docker_compose"
+  config.vm.provision :shell, path: "bootstrap.sh"
+  config.vm.provision :shell, path: "startup.sh", run: "always"
+	
+  # port forwarding  
+  config.vm.network :forwarded_port, guest: 8080, host: 18080
+  config.vm.network :forwarded_port, guest: 9000, host: 19000 
+  config.vm.network :forwarded_port, guest: 4848, host: 14848
+  config.vm.network :forwarded_port, guest: 8081, host: 18081
+
+  # vm resources
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 8096
+    v.cpus = 4
+  end
+  
+end

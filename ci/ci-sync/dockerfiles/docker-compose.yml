@@ -1,0 +1,68 @@
+# --- jenkins configuration
+jenkins:
+  build: "./ci-jenkins"
+  ports:
+   - "8080:8080"
+   - "50000:50000"
+  tty: true
+  volumes:
+   -  /opt/ci-sync/jenkins_home/:/var/jenkins_home
+   -  /opt/ci-sync/dockerfiles/:/opt/ci-sync/dockerfiles
+   -  /var/run/docker.sock:/var/run/docker.sock
+   -  /usr/bin/docker:/usr/bin/docker
+   -  /usr/lib/libdevmapper.so.1.02:/usr/lib/libdevmapper.so.1.02
+   -  /usr/lib/x86_64-linux-gnu/libapparmor.so.1:/usr/lib/x86_64-linux-gnu/libapparmor.so.1
+  links:
+  - sonarqube
+  - db-sonarqube
+  - appserver-system-test
+  - db-integration-test
+  
+# --- application server for system tests
+appserver-system-test:
+  build: "./ci-payara"
+  ports:
+   - "4848:4848"
+   - "8009:8009"
+   - "8081:8081"
+   - "8181:8181"
+  # the application server cannot start without tty
+  tty: true
+  links:
+   - db-system-test
+
+# --- database for system tests
+db-system-test:
+  image: postgres
+  environment:
+   - POSTGRES_USER=dbst
+   - POSTGRES_PASSWORD=dbst
+
+# --- database for integration tests
+db-integration-test:
+  image: postgres
+  ports:
+   - "5432:5432"
+  environment:
+   - POSTGRES_USER=dbit
+   - POSTGRES_PASSWORD=dbit
+
+# --- sonarqube   
+sonarqube:
+  image: sonarqube
+  ports:
+   - "9000:9000"
+  links:
+   - db-sonarqube
+  environment:
+   - SONARQUBE_JDBC_URL=jdbc:postgresql://db-sonarqube:5432/sonar
+  volumes:  
+   - /opt/sonarqube/lib/bundled-plugins
+   - /opt/ci-sync/sonarqube_home/extensions/:/opt/sonarqube/extensions
+
+ # --- database for sonarqube
+db-sonarqube:
+  image: postgres
+  environment:
+   - POSTGRES_USER=sonar
+   - POSTGRES_PASSWORD=sonar
