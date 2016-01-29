@@ -16,7 +16,7 @@ curl -sLo $SONAR_PLUGIN_DIR/sonar-java-plugin-${JAVA_PLUGIN_VERSION}.jar \
 	https://sonarsource.bintray.com/Distribution/sonar-java-plugin/sonar-java-plugin-${JAVA_PLUGIN_VERSION}.jar
 
 JPROPERTIES_PLUGIN_VERSION=1.5
-curl -sLo $SONAR_PLUGIN_DIR/sonar-java-plugin-${JPROPERTIES_PLUGIN_VERSION}.jar \
+curl -sLo $SONAR_PLUGIN_DIR/sonar-jproperties-plugin-${JPROPERTIES_PLUGIN_VERSION}.jar \
 	https://github.com/racodond/sonar-jproperties-plugin/releases/download/${JPROPERTIES_PLUGIN_VERSION}/sonar-jproperties-plugin-${JPROPERTIES_PLUGIN_VERSION}.jar
 
 # web
@@ -34,7 +34,7 @@ curl -sLo $SONAR_PLUGIN_DIR/sonar-web-plugin-${ENV_WEB_PLUGIN_VERSION}.jar \
 
 # formats	
 JSON_PLUGIN_VERSION=1.4
-curl -sLo $SONAR_PLUGIN_DIR/sonar-web-plugin-${JSON_PLUGIN_VERSION}.jar \
+curl -sLo $SONAR_PLUGIN_DIR/sonar-json-plugin-${JSON_PLUGIN_VERSION}.jar \
 	https://github.com/racodond/sonar-json-plugin/releases/download/${JSON_PLUGIN_VERSION}/sonar-json-plugin-${JSON_PLUGIN_VERSION}.jar
 
 XML_PLUGIN_VERSION=1.4
