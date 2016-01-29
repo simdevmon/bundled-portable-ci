@@ -9,7 +9,7 @@ jobs/**
 !jobs/**/
 
 # uncomment to exclude config.xml files in repository subdirectories
-#!config.xml
+!jobs/*/config.xml
 
 # ignore specific settings
 /credentials.xml
