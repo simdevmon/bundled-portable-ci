@@ -1,5 +1,5 @@
 FROM jenkins
-MAINTAINER Simon Narkprasert <simon.narkprasert@envinet.com>
+MAINTAINER Simon Narkprasert <simdevmon@gmail.com>
 
 USER root
 RUN apt-get update
