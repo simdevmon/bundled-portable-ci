@@ -66,3 +66,6 @@ db-sonarqube:
   environment:
    - POSTGRES_USER=sonar
    - POSTGRES_PASSWORD=sonar
+   - PGDATA=/var/lib/postgresql/data/pgdata
+  volumes:
+   - /opt/db-sonarqube-data/:/var/lib/postgresql/data/pgdata
