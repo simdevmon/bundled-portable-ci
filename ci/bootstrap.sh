@@ -29,8 +29,8 @@ curl -sLo $SONAR_PLUGIN_DIR/sonar-javascript-plugin-${JAVASCRIPT_PLUGIN_VERSION}
 	https://sonarsource.bintray.com/Distribution/sonar-javascript-plugin/sonar-javascript-plugin-${JAVASCRIPT_PLUGIN_VERSION}.jar
 
 WEB_PLUGIN_VERSION=2.4
-curl -sLo $SONAR_PLUGIN_DIR/sonar-web-plugin-${ENV_WEB_PLUGIN_VERSION}.jar \
-	https://sonarsource.bintray.com/Distribution/sonar-web-plugin/sonar-web-plugin-${ENV_WEB_PLUGIN_VERSION}.jar
+curl -sLo $SONAR_PLUGIN_DIR/sonar-web-plugin-${WEB_PLUGIN_VERSION}.jar \
+	https://sonarsource.bintray.com/Distribution/sonar-web-plugin/sonar-web-plugin-${WEB_PLUGIN_VERSION}.jar
 
 # formats	
 JSON_PLUGIN_VERSION=1.4
