@@ -17,3 +17,6 @@ while ! nc -z appserver-system-test 4848; do
   sleep 1.0
 done
 echo "...testbed is ready!"
+
+# deploy application
+curl --user admin:glassfish -s -S  -H "Accept: application/json" -X POST -H "X-Requested-By: dummy" -k -F id=@${WORKSPACE}/greeting/target/greeting.war -F force=true https://appserver-system-test:4848/management/domain/applications/application

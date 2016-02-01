@@ -53,8 +53,8 @@
   <prebuilders/>
   <postbuilders>
     <hudson.tasks.Shell>
-      <command>/opt/ci-sync/dockerfiles/reset-testbed.sh
-curl --user admin:glassfish -s -S  -H &quot;Accept: application/json&quot; -X POST -H &quot;X-Requested-By: dummy&quot; -k -F id=@${WORKSPACE}/greeting/target/greeting.war -F force=true https://appserver-system-test:4848/management/domain/applications/application</command>
+      <command>/opt/ci-sync/dockerfiles/prepare_testbed.sh
+</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Maven>
       <targets>-Pci-build integration-test</targets>
