@@ -12,3 +12,6 @@ sudo docker-compose rm -f
 
 sudo docker-compose build
 sudo docker-compose up -d
+
+# make socker.sock accessible
+sudo chmod 777 /var/run/docker.sock
