@@ -55,8 +55,8 @@ db-integration-test:
     - MYSQL_PASSWORD=dbit
    volumes:
     - /opt/mariadb-config:/etc/mysql/conf.d
-	
-# --- sonarqube   
+
+# --- sonarqube
 sonarqube:
   image: sonarqube
   ports:
