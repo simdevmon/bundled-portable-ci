@@ -17,9 +17,11 @@ sudo docker-compose up -d
 sudo chmod 777 /var/run/docker.sock
 
 # configure sonarqube
-while ! nc -z localhost 9000; do   
-  sleep 1.0
+while ! curl -s http://localhost:9000/api/system/status; do   
+  echo "Waiting for SonarQube API..."
+  sleep 5.0
 done
+
 SQ_ENDPOINT=http://localhost:9000/api
 SQ_JAVA_PROFILE=`curl -s ${SQ_ENDPOINT}/qualityprofiles/search?language=java | python -mjson.tool | grep java-sonar | tr -d ',"' | sed 's/^.*java/java/'`
 curl -u admin:admin -H "Content-Type: application/json" -X POST -d '{"profile_key":"'${SQ_JAVA_PROFILE}'","rule_key":"Sonargraph:sonargraph.architecture"}' ${SQ_ENDPOINT}/qualityprofiles/activate_rule
