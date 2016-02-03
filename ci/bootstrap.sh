@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# copy mariadb custom config
+mkdir -p /opt/mariadb-config
+mv /tmp/mariadb-custom.cnf /opt/mariadb-config
+chmod 644 /opt/mariadb-config/mariadb-custom.cnf
 
 # set plugin directory
 SONAR_PLUGIN_DIR=/opt/ci-sync/sonarqube_home/extensions/plugins

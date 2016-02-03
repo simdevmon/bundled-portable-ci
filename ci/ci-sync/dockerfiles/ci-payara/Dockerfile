@@ -24,16 +24,6 @@ ENV PAYARA_FILENAME payara-4.1.1.154.zip
 ENV PAYARA_FOLDER=payara41
 ENV DOMAIN_NAME domain1
 
-# Settings database
-ENV JDBC_DRIVER_URL https://jdbc.postgresql.org/download/postgresql-9.4.1207.jar
-ENV JDBC_DRIVER_FILENAME postgresql-9.4.1207.jar
-ENV DB_DRIVER_CLASS org.postgresql.Driver
-ENV DB_USER dbst
-ENV DB_PASSWORD dbst
-ENV DB_URL 'jdbc\:postgresql\://db-system-test\:5432/dbst'
-ENV JDBC_RESOURCE AppDb
-ENV JDBC_POOL jdbc/AppDb
-
 # Install Payara application server
 RUN curl -o /opt/${PAYARA_FILENAME}.zip -L ${PAYARA_URL} && unzip /opt/${PAYARA_FILENAME}.zip -d /opt
 ENV DEPLOYMENT_DIR /opt/${PAYARA_FOLDER}/glassfish/domains/${DOMAIN_NAME}/autodeploy/
@@ -42,6 +32,18 @@ WORKDIR /opt/${PAYARA_FOLDER}/glassfish/bin
 
 RUN echo "admin;{SSHA256}80e0NeB6XBWXsIPa7pT54D9JZ5DR5hGQV1kN1OAsgJePNXY6Pl0EIw==;asadmin" > /opt/${PAYARA_FOLDER}/glassfish/domains/${DOMAIN_NAME}/config/admin-keyfile
 RUN echo "AS_ADMIN_PASSWORD=glassfish" > pwdfile
+
+# Database settings for MariaDB
+ENV JDBC_DRIVER_VERSION 5.1.38
+ENV JDBC_DRIVER_URL http://central.maven.org/maven2/mysql/mysql-connector-java/${JDBC_DRIVER_VERSION}/mysql-connector-java-${JDBC_DRIVER_VERSION}.jar
+ENV JDBC_DRIVER_FILENAME mysql-connector-java-${JDBC_DRIVER_VERSION}.jar
+ENV DB_DRIVER_CLASS com.mysql.jdbc.Driver
+ENV DB_URL 'jdbc\:mysql\://db-system-test\:3306/dbst?autoReconnect\=true&noDatetimeStringSync\=true'
+
+ENV DB_USER dbst
+ENV DB_PASSWORD dbst
+ENV JDBC_RESOURCE AppDb
+ENV JDBC_POOL jdbc/AppDb
 
 # Install JDBC driver
 RUN curl -o /opt/${PAYARA_FOLDER}/glassfish/domains/${DOMAIN_NAME}/lib/${JDBC_DRIVER_FILENAME} -L ${JDBC_DRIVER_URL}

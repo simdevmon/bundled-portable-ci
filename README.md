@@ -30,8 +30,8 @@ The sample project is a very simple JavaEE project, which exposes greeting messa
 - [SonarQube](http://www.sonarqube.org) (code quality analysis and report)
 
 ## Testbed
-- [PostgreSQL](http://www.postgresql.org)
 - [Payara](http://www.payara.fish)
+- [MariaDB](https://mariadb.org)
 
 ## Usage
 Install [Vagrant](http://vagrantup.com) / [VirtualBox](https://www.virtualbox.org) with the following PlugIns
@@ -46,6 +46,18 @@ After that execute ```vagrant up``` inside the ```ci``` directory, which will br
 
 When Jenkins is ready the GIT credentials must be set for the existing job. That's it! 
 Hit 'Build Project' and view the results at SonarQube.
+
+### Change database
+- Forward database port in vagrant file for inspection (optional)
+- Replace database containers in docker-compose.yml
+- Replace JDBC driver in application server dockerfile
+- Change database port in prepare_testbed.sh
+
+MariaDB has some additional steps, which can be removed when changing the database
+
+- Upload of a custom configuration file through Vagrant
+- Processing of the custom configuration file during bootstrap
+- Installation of mariadb-client in Jenkins container
 
 ## Notes
 - During installation the scripts automatically agree to the [license agreement](http://www.oracle.com/technetwork/java/javase/terms/license/index.html) for Oracle JDK. Do not use this project, if you do not agree with this license agreement.

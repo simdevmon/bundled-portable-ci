@@ -10,7 +10,7 @@ docker stop dockerfiles_db-system-test_1 && docker rm dockerfiles_db-system-test
 docker-compose up -d --no-recreate 
 
 echo "Waiting for testbed..."
-while ! nc -z dockerfiles_db-integration-test_1 5432; do   
+while ! nc -z dockerfiles_db-integration-test_1 3306; do   
   sleep 1.0
 done
 while ! nc -z appserver-system-test 4848; do   

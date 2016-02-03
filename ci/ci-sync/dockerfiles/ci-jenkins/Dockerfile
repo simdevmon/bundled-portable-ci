@@ -10,6 +10,7 @@ RUN echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/90-custom && chmod 0
 RUN apt-get -y install \ 
   apt-transport-https \
   netcat \
+  mariadb-client \
   python-pip && \
   pip install docker-compose
  

@@ -10,14 +10,24 @@ Vagrant.configure(2) do |config|
   # provision
   config.vm.provision "docker"
   config.vm.provision "docker_compose"
+  config.vm.provision "file", source: "mariadb-config/mariadb-custom.cnf", destination: "/tmp/mariadb-custom.cnf"
   config.vm.provision :shell, path: "bootstrap.sh"
   config.vm.provision :shell, path: "startup.sh", run: "always"
 	
-  # port forwarding  
+  # port forwarding
+  
+  # jenkins
   config.vm.network :forwarded_port, guest: 8080, host: 18080
-  config.vm.network :forwarded_port, guest: 9000, host: 19000 
+  
+  # sonarqube
+  config.vm.network :forwarded_port, guest: 9000, host: 19000
+  
+  # application server
   config.vm.network :forwarded_port, guest: 4848, host: 14848
   config.vm.network :forwarded_port, guest: 8081, host: 18081
+  
+  # database  
+  config.vm.network :forwarded_port, guest: 3306, host: 13306
 
   # vm resources
   config.vm.provider "virtualbox" do |v|

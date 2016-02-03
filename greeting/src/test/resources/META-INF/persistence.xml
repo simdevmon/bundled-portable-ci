@@ -5,10 +5,10 @@
     <class>com.simdevmon.greeting.entity.Greeting</class>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>  
-      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://db-integration-test:5432/dbit"/>
-      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://db-integration-test:3306/dbit?autoReconnect=true"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.user" value="dbit"/>
-      <property name="javax.persistence.jdbc.password" value="dbit"/>            
+      <property name="javax.persistence.jdbc.password" value="dbit"/>
     </properties>
   </persistence-unit>
 </persistence>

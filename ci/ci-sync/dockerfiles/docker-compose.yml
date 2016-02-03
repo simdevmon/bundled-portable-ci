@@ -15,8 +15,9 @@ jenkins:
   links:
   - sonarqube
   - db-sonarqube
-  - appserver-system-test
   - db-integration-test
+  - appserver-system-test
+  - db-system-test
   
 # --- application server for system tests
 appserver-system-test:
@@ -31,22 +32,30 @@ appserver-system-test:
   links:
    - db-system-test
 
-# --- database for system tests
+# --- database MariaDB for system tests
 db-system-test:
-  image: postgres
-  environment:
-   - POSTGRES_USER=dbst
-   - POSTGRES_PASSWORD=dbst
+   image: mariadb
+   environment:
+    - MYSQL_ROOT_PASSWORD=dbst
+    - MYSQL_DATABASE=dbst
+    - MYSQL_USER=dbst
+    - MYSQL_PASSWORD=dbst
+   volumes:
+    - /opt/mariadb-config:/etc/mysql/conf.d
 
-# --- database for integration tests
+# --- database MariaDB for integration tests
 db-integration-test:
-  image: postgres
-  ports:
-   - "5432:5432"
-  environment:
-   - POSTGRES_USER=dbit
-   - POSTGRES_PASSWORD=dbit
-
+   image: mariadb
+   ports:
+    - "3306:3306"
+   environment:
+    - MYSQL_ROOT_PASSWORD=dbit
+    - MYSQL_DATABASE=dbit
+    - MYSQL_USER=dbit
+    - MYSQL_PASSWORD=dbit
+   volumes:
+    - /opt/mariadb-config:/etc/mysql/conf.d
+	
 # --- sonarqube   
 sonarqube:
   image: sonarqube
